@@ -94,30 +94,6 @@
 /*{{VARIABLES}}*/
 /*catatan: semua variables yang mengambil data variable tidak boleh diletakkan disini agar live change terjadi pada designer*/
 body{
-	--base-bg:#ffffff;
-	--base-bg2:#f6f7f8;
-	--base-color:#000000;
-	--base-color2:rgba(0,0,0,.4);
-	--base-thin-border-color:#efefef;
-	--base-bold-border-color:#e0e0e0;
-}
-body.w--darkmode{
-	--base-bg:#181b1e;
-	--base-bg2:#24292e;
-	--base-color:rgba(255,255,255,.7);
-	--base-color2:rgba(255,255,255,.3);
-	--base-thin-border-color:rgba(255,255,255,.1);
-	--base-bold-border-color:rgba(255,255,255,.4);
-}
-body{
-	--bg:var(--base-bg);
-	--bg2:var(--base-bg2);
-	--color:var(--base-color);
-	--color2:var(--base-color2);
-	--key:var(--base-key);
-	--thin-border-color:var(--base-thin-border-color);
-	--bold-border-color:var(--base-bold-border-color);
-	
 	/*color skins*/
 	--skin-white:white;
 	--skin-black:black;
@@ -221,16 +197,6 @@ body{
 	color:var(--color);
 	background:var(--bg);
 	word-wrap: break-word;
-}
-body.w--noscript:after{
-	content:"";
-	position:absolute;
-	left:0;
-	top:0;
-	right:0;
-	bottom:0;
-	background:var(--bg);
-	z-index:1075;
 }
 
 svg{fill:currentColor}
