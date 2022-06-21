@@ -16955,8 +16955,8 @@
 	(()=>{
 		const win = window;
 		const doc = document;
-		const body = doc.getElementsByTagName("body")[0];
 		const runMain = ()=>{
+			const body = doc.getElementsByTagName("body")[0];
 			const elCssAppliedChecker = doc.createElement("div");
 			elCssAppliedChecker.id = "w-check-is-css-applied";
 			body.appendChild(elCssAppliedChecker);
@@ -16964,7 +16964,7 @@
 			const intervalFn = ()=>{
 				if(elCssAppliedChecker.clientWidth === 20){
 					clearInterval(interval);
-					elCssAppliedChecker.parentNode.removeChild(elCssAppliedChecker);
+					body.removeChild(elCssAppliedChecker);
 					MAIN();
 				}
 			};
