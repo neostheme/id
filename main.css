@@ -199,6 +199,8 @@ body{
 	word-wrap: break-word;
 }
 
+#w-check-is-css-applied{width:20px;box-sizing:content-box} /*dibutuhkan untuk check apakah css sudah terapply atau belum*/
+
 svg{fill:currentColor}
 a{text-decoration:none;color:var(--key)}
 a:hover{text-decoration:underline}
