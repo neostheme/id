@@ -16393,7 +16393,7 @@
 					// tetap gunakan default
 				}
 				
-				// add class to body belum
+				// add class to body
 				const oldClasses = body.className;
 				let newClasses = oldClasses.replace(/\s*w--noscript/, "");
 				newClasses += " w--" + usedMode + "mode";
@@ -16951,14 +16951,34 @@
 	};
 	
 	
-	// EXCUTE {{MAIN}} ON READY
-	if(document.readyState === "loading"){ // cek status content loaded (https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event)
-		window.addEventListener("DOMContentLoaded", (e)=>{
-			MAIN();
-		});
-	}
-	else{
-		MAIN();
-	}	
+	// EXCUTE {{MAIN}} ON READY AND ON CSS APPLIED
+	(()=>{
+		const win = window;
+		const doc = document;
+		const body = doc.getElementsByTagName("body")[0];
+		const runMain = ()=>{
+			const elCssAppliedChecker = doc.createElement("div");
+			elCssAppliedChecker.id = "w-check-is-css-applied";
+			body.appendChild(elCssAppliedChecker);
+			
+			const intervalFn = ()=>{
+				if(elCssAppliedChecker.clientWidth === 20){
+					clearInterval(interval);
+					elCssAppliedChecker.parentNode.removeChild(elCssAppliedChecker);
+					MAIN();
+				}
+			};
+			let interval = setInterval(intervalFn, 100);
+		};
+		
+		if(doc.readyState === "loading"){ // cek status content loaded (https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event)		
+			win.addEventListener("DOMContentLoaded", (e)=>{
+				runMain();
+			});
+		}
+		else{
+			runMain();
+		}	
+	})();
 })();
 /*]]>*/	
