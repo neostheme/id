@@ -2951,8 +2951,8 @@
 			const appends = p_elemAppends;
 			const elemRemove = p_elemRemove;
 			const elBody = g_body;
-			const stringWrapperId = "w-prevent-blogger-js";
-			const stringAssetsWrapperId = "w-prevent-blogger-assets";
+			const stringWrapperId = "w-body-enscape";
+			const stringAssetsWrapperId = "w-head-enscape";
 			
 			{	// hapus assets (tidak begitu harus)
 				const elAssets = getById(stringAssetsWrapperId);
@@ -2975,7 +2975,7 @@
 				
 				
 				// load harus dipanggil ketika ready karena posisi elemen skript yang terletak diakhir
-				// jika tidak, elemen w-prevent-blogger-js adalah null
+				// jika tidak, elemen w-body-enscape adalah null
 				_doLoad();
 			};
 			const pushCallback = (fn)=>{
@@ -3005,7 +3005,11 @@
 					const elWrap = getById(stringWrapperId);
 					if(elWrap){
 						elemRemove(elWrap);
-						const realInnerString = elWrap.innerHTML.replace(/\/*wdi_default_blogger_js_start/, "").replace(/\wdi_default_blogger_js_end\*\//, "").replace(/<\/body>/, "");
+						let realInnerString = elWrap.innerHTML; 
+						realInnerString = realInnerString.substring(realInnerString.indexOf("/*") + 2, realInnerString.length);
+						realInnerString = realInnerString.substring(0, realInnerString.lastIndexOf("*/"));
+						realInnerString = realInnerString.replace(/<\/body>/, "");
+						
 						const temp = createElem({});
 						temp.innerHTML = realInnerString;
 						
