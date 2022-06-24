@@ -3078,6 +3078,7 @@
 			}
 		})();
 		const FW_Skin = (()=>{
+			const arrayGetRandomIndexs = p_arrayGetRandomIndexs;
 			const items = {
 				light : [
 					"white", 
@@ -3085,7 +3086,6 @@
 				],
 				regular : [
 					"grey",
-					"black",
 					"red",
 					"green",
 					"blue",
@@ -3145,12 +3145,47 @@
 					return "dark";
 				}
 			};
+			const getRandomItems = (group, length)=>{
+				/*arguments:
+					group : falsy || array groups
+				*/
+				let disItems = [];
+				if(!group || group === "all"){
+					disItems = disItems.concat(allItems);
+				}
+				else{
+					for(const g of group){
+						if(items[g]){
+							disItems = disItems.concat(items[g]);
+						}
+					}
+				}
+				
+				if(disItems.length === 0){
+					// keadaan tidak valid,
+					return null;
+				}
+				else{
+					while(disItems.length < length){
+						disItems = disItems.concat(disItems);
+					}
+					
+					const randomIndex = arrayGetRandomIndexs(disItems, length);
+					const usedItems = [];
+					for(const i of randomIndex){
+						usedItems.push(disItems[i]);
+					}
+					
+					return usedItems;
+				}
+			};
 			return {
 				items,
 				allItems,
 				getItems,
 				createClassString,
-				getGroup
+				getGroup,
+				getRandomItems,
 			}
 		})();
 		const FW_DefaultValues = (()=>{
@@ -5001,7 +5036,7 @@
 				const elWrap = createElem({
 					t : wrapTag || "div",
 					c : "w-img" + (src ? " w--s0" : "") + (wrapClasses ? " " + wrapClasses : "") + (!src ? " w--i0" : "")
-				});
+				});							
 				const elLink = (!url || !src) ? null : createElem({
 					t : "a",
 					h : url,
@@ -10292,6 +10327,7 @@
 			const fwOneRow = FW_OneRow;
 			const fwEllipsisOverRow = FW_EllipsisOverRow;
 			const fwImg = FW_Img;
+			const fwSkin = FW_Skin;
 			
 			const prefix = "w-21";
 			const configsData = (()=>{
@@ -10604,7 +10640,25 @@
 										appends(elTarget, imageObj.elWrap);
 										imageObj.updateSrcByWrapDimension();
 										imageObj.appendImg();
-									}						
+									}
+
+
+									// new update,
+									// no img fallback
+									{
+										const length = imagesObj.length;
+										const randomSkin = fwSkin.getRandomItems(["regular"], length);
+										if(randomSkin){
+											for(let i=0;i<length;i++){
+												const o = imagesObj[i];
+												const {elWrap, elImg, title} = o;
+												if(!elImg){
+													const elNoImgFallback = createElem({c : fwSkin.createClassString(randomSkin[i]), n : title ? title[0] : "i"});
+													appends(elWrap, elNoImgFallback);
+												}
+											}
+										}
+									}									
 								}
 							}
 						}		
@@ -10649,6 +10703,7 @@
 			const fwGrid = FW_Grid;
 			const fwOneRow = FW_OneRow;
 			const fwImg = FW_Img;
+			const fwSkin = FW_Skin;
 			
 			const prefix = "w-22";
 			const configsData = (()=>{
@@ -10909,6 +10964,24 @@
 								for(const imageObj of imagesObj){
 									imageObj.updateSrcByWrapDimension();
 									imageObj.appendImg();
+								}
+								
+								
+								// new update,
+								// no img fallback
+								{
+									const length = imagesObj.length;
+									const randomSkin = fwSkin.getRandomItems(["regular"], length);
+									if(randomSkin){
+										for(let i=0;i<length;i++){
+											const o = imagesObj[i];
+											const {elWrap, elImg, title} = o;
+											if(!elImg){
+												const elNoImgFallback = createElem({c : fwSkin.createClassString(randomSkin[i]), n : title ? title[0] : "i"});
+												appends(elWrap, elNoImgFallback);
+											}
+										}
+									}
 								}
 							}
 						}
