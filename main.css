@@ -78,6 +78,7 @@
 	-	{{JUMP_TARGET}}
 	-	{{CUSTOM_DOC_TITLE}}
 	-	{{ICON_COLOR}}
+	-	{{CHECK_IS_CSS_APPLIED}}
 	
 /*
 
@@ -199,8 +200,6 @@ body{
 	word-wrap: break-word;
 }
 
-#w-check-is-css-applied{width:20px;box-sizing:content-box} /*dibutuhkan untuk check apakah css sudah terapply atau belum*/
-
 svg{fill:currentColor}
 a{text-decoration:none;color:var(--key)}
 a:hover{text-decoration:underline}
@@ -306,6 +305,19 @@ display:flex;align-items:center;}
 }
 .w-img.w--s1:after{color:transparent;}
 .w-img.w--i0{background:var(--bg2)} /* no img content*/
+.w-img.w--i0 > div{
+	font-size: 50px;
+	line-height: 1;
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	background:var(--skin);
+	color:#fff;
+}
+
+
 
 /*{{ONE_ROW}}*/
 .w-6a ::-webkit-scrollbar{width:0px!important;height:0px!important}
@@ -2078,7 +2090,11 @@ Height yang diambil adalah
 .w-21a.w--h5 .w-21e{height:100px;width:100px}
 .w-21a.w--h6 .w-21e{height:120px;width:120px}
 .w-21m{width:100%;height:100%;border-radius:3px;}
-.w-21a.w--imb2 .w-21m{border-radius:50%}						
+.w-21a.w--imb2 .w-21m{border-radius:50%}			
+
+				/*no img allback font size*/
+				.w-21a.w--h1 .w-img.w--i0 > div{font-size:24px}
+				.w-21a.w--h2 .w-img.w--i0 > div, .w-21a.w--h3 .w-img.w--i0 > div{font-size:30px}
 
 
 /* item box */
@@ -3514,3 +3530,6 @@ v: w-post-header > w-post-info > w-items --> w-item --> w-value */
 
 /*{{ICON_COLOR}}*/
 .w-icon-email{color:#efa622}
+
+/*{{CHECK_IS_CSS_APPLIED}}*/
+#w-check-is-css-applied{width:20px!important;box-sizing:content-box!important} /*dibutuhkan untuk check apakah css sudah terapply atau belum. samakan 20 dengan js checker*/
