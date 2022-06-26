@@ -804,8 +804,11 @@ hal ini karena ketika slider, overflow adalah hidden. Posisi direset melalui mar
 
 /*{{BOX}}*/
 /*1. type border*/
-.w--box1{border:1px solid var(--thin-border-color);border-radius:3px}	
-.w--box1 > *{padding:10px;} /*padding diterapkan padadirect-chidren mengikuti box type shadow agar serempak*/
+.w--box1{border-radius:3px}	
+.w--box1 > *{padding:10px;border:1px solid var(--thin-border-color);box-sizing:border-box;} 
+/*padding diterapkan padadirect-chidren mengikuti box type shadow agar serempak
+border diterapkan pada w2 agar serempak dengan shadow
+*/
 					
 /*2. type shadow 
 persyaratan:
@@ -819,17 +822,19 @@ pseudo di set ke w1 dan bg di set ke w2 agar bisa menutupi pseudo
 									
 .w--box2{
 	position:relative;
-	box-shadow:0 0 5px rgb(0, 0, 0, .2 );
+	box-shadow:0 0 5px rgb(0, 0, 0, .2);
 	border:1px solid var(--bg);
-}
-.w--darkmode .w--box2{
-	border-color:var(--thin-border-color);
 }
 .w--box2 > *{
 	position:relative; /* tanpa ini, z-index tidak bekerja*/
 	background:var(--bg);
 	padding:10px;
+	border:1px solid var(--bg); /*border harus diterapkan pada w2 agar tidak tertimpa oleh shadow*/
+	box-sizing:border-box;
 	z-index:1; /* tanpa ini, after wrap 1 masih terlihat. alasannya karena urutannya adalah setelah elemen w2 ini. (before, w2, after) */
+}
+.w--darkmode .w--box2 > *{
+	border-color:var(--thin-border-color);
 }
 
 .w--box2:before, .w--box2:after{
@@ -1604,8 +1609,8 @@ mark[class*="w-s-l-"], .w-mark[class*="w-s-l-"]{
 	top:.2em;
 	font-family: "Font Awesome 6 Free";
 	font-weight:400;
-	font-size:20px;
-	line-height:20px;
+	font-size:1.2em;
+	line-height:1;
 }
 
 
