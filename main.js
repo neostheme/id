@@ -16404,10 +16404,12 @@
 				const getById = p_elemGetById;
 				const getByClass = p_elemGetByClass;
 				const appends = p_elemAppends;
+				const elemRemove = p_elemRemove;
 				const createTextNode = p_elemCreateTextNode;
 				const mainScrollbarSizes = g_mainScrollbarSizes;
 				const getBoundingClientRect = p_elemGetBoundingClientRect;
 				const alphabetByLicenseKey = g_alphabetByLicenseKey;
+				const elBlog = g_blog;
 				
 				// {{license_integrations}}
 				// gunakan {{NEOS_LISENSE_ALPHABETBYKEY_GENERATOR}}
@@ -16421,8 +16423,10 @@
 				appends(elPageSkin1, newNode);
 				
 				// responsiver offset
-				const elReponsiver = getByClass(null, "w-responsiver", 0);
-				if(elReponsiver){
+				// elresponsiver harus dibuat bau karena kemungkinan yang dibuat diblog tidak tersedia atau dalam keadaan tersembunyi
+				{
+					const elResponsiver = createElem({c : "w-responsiver"});
+					appends(elBlog, elResponsiver); // append harus pada blog karena jika alasan scrollbar yng diterapkan pada elblog bukan body
 					const rects = getBoundingClientRect(elReponsiver);
 					const leftOffsetRules = "--responsiver-offset-left:" + rects.left + "px";
 					const rightOffsetRules = "--responsiver-offset-right:" + rects.right + "px";
@@ -16431,6 +16435,8 @@
 					
 					g_responsiverOffsetLeft = rects.left;
 					g_responsiverOffsetRight = rects.right;
+					
+					elemRemove(elResponsiver);
 				}
 			}
 			{ // ad body classes
