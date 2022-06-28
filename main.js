@@ -3232,10 +3232,10 @@
 			const fwOverrideConfigs = FW_OverrideConfigs;
 			
 			const configsData = configsCreateData([
+				["sticky_header", 1, "auto", ["none", "static", "minimize", "auto"]],
 				["date_format", 1, Dev_DateFormat],
 				["add_nofollow_for_external_link", 2, true],
 				["open_external_link_in_new_tab", 2, true],
-				["sticky_header", 1, "auto", ["none", "static", "minimize", "auto"]],
 			]);
 			fwOverrideConfigs.pushData("general", configsData);
 			
@@ -12416,6 +12416,11 @@
 
 		
 		const FW_Widgets = (()=>{
+			/*	DOKUMENTASI
+				class
+					w--d0 	:	ditambahkan pada keadaan initial (display none)
+					w--v0	:	ditambahkan ketika widget akan di init (visibility 0). pada keadaan ini, w--d0 dihapus
+			*/
 			const getByClass = p_elemGetByClass;
 			const getByTag = p_elemGetByTag;
 			const getDataAttrTypeString = p_getDataAttrTypeString;
@@ -12449,7 +12454,7 @@
 							runCallbackAndRemoveWidget(widgetObj, callback, errorMsg);
 						}
 						else{
-							addClasses(el, "w--v0");
+							addClasses(el, "w--v0"); // baca dokumentasi diatas tentang class ini
 							removeClasses(el, "w--d0");
 							oldInit(widgetObj, callback);
 						}
@@ -12681,6 +12686,12 @@
 					return;
 				}
 				
+				{ /*STEP0: Tambahkan class w--v0 dan hapus class w--d0 (disesuaikan berdasarkan prosedur init widget) */
+				  if(elHeaderWrap){
+					  addClasses(elHeaderWrap, "w--v0");
+					  removeClasses(elHeaderWrap, "w--d0");
+				  }
+				}
 				{ /* STEP1: PROCESS BLOGNAME
 					// Pada XML, blogname baru dibuat seadanya dengan memprint text konten 
 					// hal ini untuk kepentingan SEO awal.
@@ -13177,6 +13188,9 @@
 								
 								// AKTIFKAN SHADOW
 								removeClasses(elHeaderWrap, "w--nosd");
+								
+								// TAMPILKAN HEADER
+								removeClasses(elHeaderWrap, "w--v0");
 								
 								
 								// UNTUK KEPENTINGAN PERFORMA, BEBERAPA PROSES BERIKUT DILAKUKAN SETELAH ELEMEN DITAMPILKAN
