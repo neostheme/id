@@ -16428,7 +16428,7 @@
 				{
 					const elResponsiver = createElem({c : "w-responsiver"});
 					appends(elBlog, elResponsiver); // append harus pada blog karena jika alasan scrollbar yng diterapkan pada elblog bukan body
-					const rects = getBoundingClientRect(elReponsiver);
+					const rects = getBoundingClientRect(elResponsiver);
 					const leftOffsetRules = "--responsiver-offset-left:" + rects.left + "px";
 					const rightOffsetRules = "--responsiver-offset-right:" + rects.right + "px";
 					const newNode = createTextNode("body{" + leftOffsetRules + ";" + rightOffsetRules + "}");
