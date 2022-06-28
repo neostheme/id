@@ -1642,6 +1642,10 @@ mark[class*="w-s-l-"], .w-mark[class*="w-s-l-"]{
 class w--nosd akan dihapus pada js */
 .w-header-w1.w--nosd{box-shadow:none!important;border-color:transparent!important}
 
+/*class lainnya disesuaikan dengan prosedur init widget*/
+.w-header-w1.w--d0{display:none}
+.w-header-w1.w--v0{visibility:hidden!important;}
+
 .w-header-section{position:relative;display:flex;align-items:center;height:var(--header-content-height);line-height:var(--header-content-height);}
 .w-header-section > *{flex-shrink:0;height:100%;margin-right:var(--item-distance);}
 .w-header-section > *:last-child{margin-right:0}
