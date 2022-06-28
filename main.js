@@ -16405,6 +16405,7 @@
 				const getByClass = p_elemGetByClass;
 				const appends = p_elemAppends;
 				const elemRemove = p_elemRemove;
+				const createElem = p_elemCreateElem;
 				const createTextNode = p_elemCreateTextNode;
 				const mainScrollbarSizes = g_mainScrollbarSizes;
 				const getBoundingClientRect = p_elemGetBoundingClientRect;
